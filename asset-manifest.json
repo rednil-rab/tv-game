@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/tv-game/static/css/main.eca19cb5.chunk.css",
-    "main.js": "/tv-game/static/js/main.5070381b.chunk.js",
-    "main.js.map": "/tv-game/static/js/main.5070381b.chunk.js.map",
+    "main.js": "/tv-game/static/js/main.85b8a1fc.chunk.js",
+    "main.js.map": "/tv-game/static/js/main.85b8a1fc.chunk.js.map",
     "runtime-main.js": "/tv-game/static/js/runtime-main.4b437d1c.js",
     "runtime-main.js.map": "/tv-game/static/js/runtime-main.4b437d1c.js.map",
     "static/js/2.63013938.chunk.js": "/tv-game/static/js/2.63013938.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.4b437d1c.js",
     "static/js/2.63013938.chunk.js",
     "static/css/main.eca19cb5.chunk.css",
-    "static/js/main.5070381b.chunk.js"
+    "static/js/main.85b8a1fc.chunk.js"
   ]
 }
