@@ -36,7 +36,7 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
       let temp = await requests.getShows();
       setShows(temp);
       console.log(shows);
-      setPlaceholder(utils.hideLetters(temp[0].name));
+      setPlaceholder(utils.hideLetters(temp[index].name));
       setLoaded(true);
       
     }
