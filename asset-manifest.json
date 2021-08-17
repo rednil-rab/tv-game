@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/tv-game/static/css/main.eca19cb5.chunk.css",
+    "main.js": "/tv-game/static/js/main.5070381b.chunk.js",
+    "main.js.map": "/tv-game/static/js/main.5070381b.chunk.js.map",
+    "runtime-main.js": "/tv-game/static/js/runtime-main.4b437d1c.js",
+    "runtime-main.js.map": "/tv-game/static/js/runtime-main.4b437d1c.js.map",
+    "static/js/2.63013938.chunk.js": "/tv-game/static/js/2.63013938.chunk.js",
+    "static/js/2.63013938.chunk.js.map": "/tv-game/static/js/2.63013938.chunk.js.map",
+    "static/js/3.3266d106.chunk.js": "/tv-game/static/js/3.3266d106.chunk.js",
+    "static/js/3.3266d106.chunk.js.map": "/tv-game/static/js/3.3266d106.chunk.js.map",
+    "index.html": "/tv-game/index.html",
+    "static/css/main.eca19cb5.chunk.css.map": "/tv-game/static/css/main.eca19cb5.chunk.css.map",
+    "static/js/2.63013938.chunk.js.LICENSE.txt": "/tv-game/static/js/2.63013938.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4b437d1c.js",
+    "static/js/2.63013938.chunk.js",
+    "static/css/main.eca19cb5.chunk.css",
+    "static/js/main.5070381b.chunk.js"
+  ]
+}
