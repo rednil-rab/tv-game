@@ -55,6 +55,8 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
       setScore(score + 1);
       setHint(false);
       setRight(right + 1);
+      debugger;
+      setPlaceholder(utils.hideLetters(shows[index+1].name));
     } else {
       setWrong(wrong + 1);
     }
