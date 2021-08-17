@@ -1,3 +1,5 @@
+import React from 'react'
+
 export interface Show {
     name: string;
     description: string;
@@ -5,13 +7,13 @@ export interface Show {
 }
 
 export interface PopUpProps {
-    number: number;
+    num: number;
     text: string;
     color: string;
 }
 
 export interface StatProps {
-    number: number;
+    num: number;
     text: string;
     color: string;
     interations: number;
@@ -28,4 +30,12 @@ export interface ButtonProps {
     clickHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
     background: string;
 
+}
+
+export interface LifeBarProps {
+    num: number;
+}
+
+export interface placeholderProps {
+    InputHandler: (React.FormEventHandler<HTMLInputElement>)
 }

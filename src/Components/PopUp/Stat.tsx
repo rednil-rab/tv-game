@@ -1,7 +1,32 @@
 import React from "react";
 import * as types from '../../types/types';
+import styled from 'styled-components';
 
+const Stat: React.FC<types.StatProps> = (props) => {
+  const StyledStatDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    font-family: 'Comfortaa', cursive;
+    width: 30%;
+    
+    `
+  const StyleStatLabel = styled.div`
+    width: 80%;
+    border-radius: 15px;
+    padding: 6%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-size: 16px;
+    background: ${props.color};
+    `;  
+  return (
+        <StyledStatDiv className="stat" ><h1>{props.num}</h1><StyleStatLabel className="stat-label" >{props.text}</StyleStatLabel></StyledStatDiv>
+  )
 
-const Stat: React.FC<types.StatProps> = (props) => <div className="stat" style={{width: `${100/props.interations*0.9}%`}}><h1>{props.number}</h1><div className="stat-label" style={{background: props.color}}>{props.text}</div></div>;
+}
 
 export default Stat;

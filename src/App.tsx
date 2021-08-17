@@ -8,6 +8,8 @@ import * as types from './types/types';
 import { Spinner } from 'react-bootstrap';
 import PopUp from './Components/PopUp/PopUp';
 import * as utils from './utils';
+import LifeBar from './Components/LifeBar/LifeBar'
+import { ToastContainer, toast } from 'react-toastify';
 
 interface AppProps {
   num?: number,
@@ -44,7 +46,33 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     makeShows()
   }, [])
 
-
+  const notifyRight = (str: string) => toast.success(str, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+  const notifyWrong = (str: string) => toast.error(str, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
+    const notifyLose = (str: string) => toast.error(str, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
   const handleClick: () => void = () => {
     setHint(true);
     setUsed(used+1);
@@ -57,11 +85,14 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       setHint(false);
       setRight(right + 1);
       setPlaceholder(utils.hideLetters(shows[index+1].name));
+      notifyRight('nice!');
       
     } else {
       setWrong(wrong + 1);
       setLife(life+1);
-      if (life > 2) {
+      notifyWrong('wrong...');
+      if (life > 1) {
+        notifyWrong('You Lose...');
         resetGame();
       }
     }
@@ -99,28 +130,28 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
   const stats: types.PopUpProps[] = [
     {
       text: 'Right guesses',
-      number: right,
+      num: right,
       color: '#DE9F4C'
 
     },
     {
       text: 'Wrong guesses',
-      number: wrong,
+      num: wrong,
       color: '#0DB2B2'
 
     },
     {
       text: 'Hint used',
-      number: used,
+      num: used,
       color: '#664FA7'
 
     }
   ]
-  
+
   return (
     <div className="App">
       <div className="header">
-        <div>
+        <div className='stat-container'>
           <p>{score}</p>
           <Button
             text={'Statistics'}
@@ -130,9 +161,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         </div>
 
         <h1>Guess the TV show</h1>
-        <div className="heart-container">
-
-        </div>
+        <LifeBar num={life} />
       </div>
       <div className="main">
         <Placeholder text={placeholder} />
@@ -159,6 +188,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         stats={stats}
         clickHandler={handleClick3}
       />
+      <ToastContainer />
     </div>
   );
 }
