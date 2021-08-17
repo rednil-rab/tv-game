@@ -6,9 +6,9 @@ export function debounce<F extends (...params: any[]) => void>(fn: F, delay: num
     } as F;
   }
 
-  export function hideLetters (string: string): string {
-    if (string === undefined) {
+  export function hideLetters (str: string): string {
+    if (str === undefined) {
         return 'string'
     }
-    return string.split("").map(char => Math.random() > 0.5 ? "_" : char).join("");
+    return str.split("").map(char => Math.random() > 0.5 ? "_" : char).join("");
   }

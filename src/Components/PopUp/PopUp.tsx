@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Stat from './Stat';
 import { X } from 'react-bootstrap-icons';
 import * as types from '../../types/types';
@@ -11,7 +11,7 @@ const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
 
     return (
         <div style={{display: props.display ? "flex" : "none"}} className="pop-up">
-            <div onClick={props.ClickHandler}> <X className="x"/></div>
+            <div onClick={props.clickHandler}> <X className="x"/></div>
 
             {popUps}
             

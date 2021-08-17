@@ -10,26 +10,27 @@ import PopUp from './Components/PopUp/PopUp';
 import * as utils from './utils';
 
 interface AppProps {
-  initial?: number,
-  array?: [],
+  num?: number,
+  arr?: [],
   bool?: boolean,
-  word?: string,
+  str?: string,
 }
 
 
 
-const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, array = [], bool = false }) => {
-  const [score, setScore] = useState(initial);
-  const [shows, setShows]: any = useState(array);
-  const [index, setIndex] = useState(initial);
+const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) => {
+  const [score, setScore] = useState(num);
+  const [shows, setShows]: any = useState(arr);
+  const [index, setIndex] = useState(num);
   const [loaded, setLoaded] = useState(bool);
-  const [guess, setGuess] = useState(word);
+  const [guess, setGuess] = useState(str);
   const [hint, setHint] = useState(bool);
-  const [right, setRight] = useState(initial);
-  const [wrong, setWrong] = useState(initial);
+  const [right, setRight] = useState(num);
+  const [wrong, setWrong] = useState(num);
   const [popUp,setPopUp] = useState(bool);
-  const [used,setUsed] = useState(initial);
-  const [placeholder,setPlaceholder] = useState(word);
+  const [used,setUsed] = useState(num);
+  const [placeholder,setPlaceholder] = useState(str);
+  const [life, setLife] = useState(num);
 
   useEffect(() => {
     async function makeShows() {
@@ -55,10 +56,14 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
       setScore(score + 1);
       setHint(false);
       setRight(right + 1);
-      debugger;
       setPlaceholder(utils.hideLetters(shows[index+1].name));
+      
     } else {
       setWrong(wrong + 1);
+      setLife(life+1);
+      if (life > 2) {
+        resetGame();
+      }
     }
   }
   const handleClick3: () => void = () => {
@@ -67,6 +72,14 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
     } else {
       setPopUp(true);
     }
+  }
+
+  const resetGame = () => {
+    setIndex(0);
+    setScore(0);
+    setHint(false);
+    setPlaceholder(utils.hideLetters(shows[0].name));
+    setLife(0);
   }
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     setGuess((e.target as HTMLInputElement).value);
@@ -103,15 +116,15 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
 
     }
   ]
+  
   return (
     <div className="App">
-
       <div className="header">
         <div>
-          <h2>{score}</h2>
+          <p>{score}</p>
           <Button
             text={'Statistics'}
-            ClickHandler={handleClick3}
+            clickHandler={handleClick3}
             background={'#DE9F4C'}
           />
         </div>
@@ -127,12 +140,12 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
         <div className="btn-container">
           <Button
             text={'Check the guess'}
-            ClickHandler={handleClick2}
+            clickHandler={handleClick2}
             background={'#0DB2B2'}
           />
           <Button
             text={'Hint'}
-            ClickHandler={handleClick}
+            clickHandler={handleClick}
             background={hint ? 'rgb(11 122 122)' : '#0DB2B2'}
           />
 
@@ -144,7 +157,7 @@ const App: React.FunctionComponent<AppProps> = ({ word = 'asafaf', initial = 0, 
       <PopUp
         display={popUp}
         stats={stats}
-        ClickHandler={handleClick3}
+        clickHandler={handleClick3}
       />
     </div>
   );

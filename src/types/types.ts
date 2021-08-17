@@ -20,12 +20,12 @@ export interface StatProps {
 export interface popUpsProps {
     stats: PopUpProps[];
     display: boolean;
-    ClickHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+    clickHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export interface ButtonProps {
     text: string;
-    ClickHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    clickHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
     background: string;
 
 }
