@@ -106,4 +106,7 @@
     display: flex;
     justify-content: space-between;
   }
+  .placeholder {
+    font-size: 30px;
+  }
 }

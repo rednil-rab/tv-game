@@ -1,15 +1,17 @@
 import React from "react";
 import * as types from '../../types/types';
 import styled from 'styled-components';
+import useWindowResize from "../../hooks/useWindowsize";
 
 const Stat: React.FC<types.StatProps> = (props) => {
+  const windowSize = useWindowResize();
   const StyledStatDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 16px;
     font-family: 'Comfortaa', cursive;
-    width: 30%;
+    width: ${windowSize[0] < 640 ? '100%;' : '30%;'}30%;
     
     `
   const StyleStatLabel = styled.div`
