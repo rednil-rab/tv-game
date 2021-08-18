@@ -10,6 +10,7 @@ import PopUp from './Components/PopUp/PopUp';
 import * as utils from './utils';
 import LifeBar from './Components/LifeBar/LifeBar'
 import { ToastContainer, toast } from 'react-toastify';
+import useWindowSize from './hooks/useWindowsize';
 
 interface AppProps {
   num?: number,
@@ -29,53 +30,53 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
   const [hint, setHint] = useState(bool);
   const [right, setRight] = useState(num);
   const [wrong, setWrong] = useState(num);
-  const [popUp,setPopUp] = useState(bool);
-  const [used,setUsed] = useState(num);
-  const [placeholder,setPlaceholder] = useState(str);
+  const [popUp, setPopUp] = useState(bool);
+  const [used, setUsed] = useState(num);
+  const [placeholder, setPlaceholder] = useState(str);
   const [life, setLife] = useState(num);
+  const windowSize = useWindowSize();
+
+  const notifySucces = (str: string) => toast.success(str, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+  const notifyError = (str: string) => toast.error(str, {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
 
   useEffect(() => {
     async function makeShows() {
       let temp = await requests.getShows();
       setShows(temp);
       console.log(shows);
-      setPlaceholder(utils.hideLetters(temp[index].name));
-      setLoaded(true);
-      
+      if (temp.length === 0) {
+        notifyError('network error');
+      } else {
+        console.log(windowSize[0]);
+        setPlaceholder(utils.hideLetters(temp[index].name));
+        setLoaded(true);
+      }
     }
     makeShows()
   }, [])
 
-  const notifyRight = (str: string) => toast.success(str, {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    });
-  const notifyWrong = (str: string) => toast.error(str, {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    });
-    const notifyLose = (str: string) => toast.error(str, {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      });
+
+
   const handleClick: () => void = () => {
     setHint(true);
-    setUsed(used+1);
+    setUsed(used + 1);
   }
   const handleClick2: () => void = () => {
     // console.log(guess.toLowerCase())
@@ -84,15 +85,15 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       setScore(score + 1);
       setHint(false);
       setRight(right + 1);
-      setPlaceholder(utils.hideLetters(shows[index+1].name));
-      notifyRight('nice!');
-      
+      setPlaceholder(utils.hideLetters(shows[index + 1].name));
+      notifySucces('nice!');
+
     } else {
       setWrong(wrong + 1);
-      setLife(life+1);
-      notifyWrong('wrong...');
+      setLife(life + 1);
+      notifyError('wrong...');
       if (life > 1) {
-        notifyWrong('You Lose...');
+        notifyError('You Lose...');
         resetGame();
       }
     }
@@ -118,15 +119,6 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
 
 
 
-  if (!loaded) {
-    return (
-      <div className={'App'}>
-        <Spinner animation="border" />
-      </div>
-
-    )
-  }
-
   const stats: types.PopUpProps[] = [
     {
       text: 'Right guesses',
@@ -148,22 +140,38 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     }
   ]
 
+  if (!loaded) {
+    return (
+      <div className={'app'}>
+        <Spinner animation="border" />
+      </div>
+
+    )
+  }
+
+
+  const statContainer = 
+  <div className='stat-container'>
+    <p>{score}</p>
+    <Button
+      text={'Statistics'}
+      clickHandler={handleClick3}
+      background={'#DE9F4C'}
+    />
+  </div>
+
+
+
   return (
-    <div className="App">
+    <div className="app">
       <div className="header">
-        <div className='stat-container'>
-          <p>{score}</p>
-          <Button
-            text={'Statistics'}
-            clickHandler={handleClick3}
-            background={'#DE9F4C'}
-          />
-        </div>
+        {windowSize[0] > 640 ? statContainer : ''}
 
         <h1>Guess the TV show</h1>
         <LifeBar num={life} />
       </div>
       <div className="main">
+      {windowSize[0] < 640 ? statContainer : ''}
         <Placeholder text={placeholder} />
         <Input InputHandler={handleInput} />
         <div className="btn-container">
