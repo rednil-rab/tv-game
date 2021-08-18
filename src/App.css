@@ -109,4 +109,10 @@
   .placeholder {
     font-size: 30px;
   }
+  .x{
+    top: 0;
+    height: 16%;
+    width: 16%;
+    right: 0;
+  }
 }

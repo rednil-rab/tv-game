@@ -11,7 +11,9 @@ const Stat: React.FC<types.StatProps> = (props) => {
     align-items: center;
     font-size: 16px;
     font-family: 'Comfortaa', cursive;
-    width: ${windowSize[0] < 640 ? '100%;' : '30%;'}30%;
+    width: ${windowSize[0] < 640 ? '100%' : '30%'};
+    justify-content: ${windowSize[0] < 640 ? 'center' : 'space-between'};
+    margin: ${windowSize[0] < 640 ? '5%' : '0'};
     
     `
   const StyleStatLabel = styled.div`
@@ -26,7 +28,7 @@ const Stat: React.FC<types.StatProps> = (props) => {
     background: ${props.color};
     `;  
   return (
-        <StyledStatDiv className="stat" ><h1>{props.num}</h1><StyleStatLabel className="stat-label" >{props.text}</StyleStatLabel></StyledStatDiv>
+        <StyledStatDiv className="stat" ><h1 style={{margin: 0}}>{props.num}</h1><StyleStatLabel className="stat-label" >{props.text}</StyleStatLabel></StyledStatDiv>
   )
 
 }
