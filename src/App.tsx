@@ -19,8 +19,6 @@ interface AppProps {
   str?: string,
 }
 
-
-
 const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) => {
   const [score, setScore] = useState(num);
   const [shows, setShows]: any = useState(arr);
@@ -28,10 +26,10 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
   const [loaded, setLoaded] = useState(bool);
   const [guess, setGuess] = useState(str);
   const [hint, setHint] = useState(bool);
-  const [right, setRight] = useState(num);
-  const [wrong, setWrong] = useState(num);
+  const [right, setRight] = useState(Number(localStorage.getItem('right')) === null ? num : Number(localStorage.getItem('right')));
+  const [wrong, setWrong] = useState(Number(localStorage.getItem('wrong')) === null ? num : Number(localStorage.getItem('wrong')));
   const [popUp, setPopUp] = useState(bool);
-  const [used, setUsed] = useState(num);
+  const [used, setUsed] = useState(Number(localStorage.getItem('used')) === null ? num : Number(localStorage.getItem('used')));
   const [placeholder, setPlaceholder] = useState(str);
   const [life, setLife] = useState(num);
   const windowSize = useWindowSize();
@@ -45,6 +43,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     draggable: true,
     progress: undefined,
   });
+
   const notifyError = (str: string) => toast.error(str, {
     position: "top-center",
     autoClose: 1000,
@@ -74,22 +73,30 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
 
 
 
-  const handleClick: () => void = () => {
+  const handleClickHint: () => void = () => {
     setHint(true);
     setUsed(used + 1);
+    localStorage.setItem('used',JSON.stringify(used+1));
   }
-  const handleClick2: () => void = () => {
+  const handleClickGuess: () => void = () => {
     // console.log(guess.toLowerCase())
     if (guess.toLowerCase() === shows[index].name.toLowerCase()) {
       setIndex(index + 1);
       setScore(score + 1);
+
       setHint(false);
       setRight(right + 1);
+      localStorage.setItem('right',JSON.stringify(right+1));
       setPlaceholder(utils.hideLetters(shows[index + 1].name));
+      
+      if (index >= shows.length) {
+        setIndex(0);
+        notifySucces('You did it!');
+      }
       notifySucces('nice!');
-
     } else {
       setWrong(wrong + 1);
+      localStorage.setItem('wrong',JSON.stringify(wrong+1));
       setLife(life + 1);
       notifyError('wrong...');
       if (life > 1) {
@@ -98,7 +105,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       }
     }
   }
-  const handleClick3: () => void = () => {
+  const handleClickPopUp: () => void = () => {
     if (popUp) {
       setPopUp(false);
     } else {
@@ -155,12 +162,12 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     <p>{score}</p>
     <Button
       text={'Statistics'}
-      clickHandler={handleClick3}
+      clickHandler={handleClickPopUp}
       background={'#DE9F4C'}
     />
   </div>
 
-
+  
 
   return (
     <div className="app">
@@ -177,12 +184,12 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         <div className="btn-container">
           <Button
             text={'Check the guess'}
-            clickHandler={handleClick2}
+            clickHandler={handleClickGuess}
             background={'#0DB2B2'}
           />
           <Button
             text={'Hint'}
-            clickHandler={handleClick}
+            clickHandler={handleClickHint}
             background={hint ? 'rgb(11 122 122)' : '#0DB2B2'}
           />
 
@@ -194,7 +201,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       <PopUp
         display={popUp}
         stats={stats}
-        clickHandler={handleClick3}
+        clickHandler={handleClickPopUp}
       />
       <ToastContainer />
     </div>
