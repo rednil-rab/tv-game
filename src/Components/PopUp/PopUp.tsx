@@ -26,7 +26,7 @@ const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
     padding: 3%;
     `
     const iterations: number = props.stats.length;
-    const popUps: JSX.Element[] = props.stats.map(stat => <Stat interations={iterations} num={stat.num} text={stat.text} color={stat.color}></Stat>)
+    const popUps: JSX.Element[] = props.stats.map((stat,index) => <Stat interations={iterations} key={`key_${index}`} num={stat.num} text={stat.text} color={stat.color}></Stat>)
     return (
         <StyledDiv  className='pop-up'>
         <div onClick={props.clickHandler}> <X className='x'/></div>

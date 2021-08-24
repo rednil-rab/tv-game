@@ -59,7 +59,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     async function makeShows() {
       let temp = await requests.getShows();
       setShows(temp);
-      console.log(shows);
+      
       if (temp.length === 0) {
         notifyError('network error');
       } else {
@@ -67,6 +67,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         setPlaceholder(utils.hideLetters(temp[index].name));
         setLoaded(true);
       }
+      console.log(shows);
     }
     makeShows()
   }, [])
@@ -78,6 +79,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     setUsed(used + 1);
     localStorage.setItem('used',JSON.stringify(used+1));
   }
+
   const handleClickGuess: () => void = () => {
     // console.log(guess.toLowerCase())
     if (guess.toLowerCase() === shows[index].name.toLowerCase()) {
@@ -88,7 +90,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       setRight(right + 1);
       localStorage.setItem('right',JSON.stringify(right+1));
       setPlaceholder(utils.hideLetters(shows[index + 1].name));
-      
+      (document.getElementsByClassName('guess')[0] as HTMLInputElement).value = '';
       if (index >= shows.length) {
         setIndex(0);
         notifySucces('You did it!');
@@ -105,6 +107,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       }
     }
   }
+
   const handleClickPopUp: () => void = () => {
     if (popUp) {
       setPopUp(false);
@@ -167,13 +170,11 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     />
   </div>
 
-  
-
   return (
     <div className="app">
       <div className="header">
         {windowSize[0] > 640 ? statContainer : ''}
-
+        
         <h1>Guess the TV show</h1>
         <LifeBar num={life} />
       </div>

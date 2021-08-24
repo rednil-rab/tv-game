@@ -38,5 +38,4 @@ export interface LifeBarProps {
 
 export interface placeholderProps {
     InputHandler: (React.FormEventHandler<HTMLInputElement>);
-    
 }
