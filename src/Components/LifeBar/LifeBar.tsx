@@ -6,16 +6,7 @@ import styled from 'styled-components';
 
 const LifeBar: React.FunctionComponent<types.LifeBarProps> = (props) => {
   const { width, num } = props;
-  const StyledDiv = styled.div`
-    display: flex;
-    width: 60%;
-    justify-content: space-evenly
-    `;
-  const StyledContainer = styled.div`
-    display: flex;
-    width: ${width < 640 ? '60%' : '100%'};
-    justify-content: space-evenly
-    `;
+
   const fillHearts: (num: number) => JSX.Element = (num) => {
     if (num < 1) {
       return <StyledDiv><HeartFill className="heart" /><HeartFill className="heart" /><HeartFill className="heart" /></StyledDiv>;
@@ -26,16 +17,28 @@ const LifeBar: React.FunctionComponent<types.LifeBarProps> = (props) => {
     if (num < 3) {
       return <StyledDiv><HeartFill className="heart" /><Heart className="heart" /><Heart className="heart" /></StyledDiv>;
     }
-
     return <HeartFill />;
   };
+
   return (
-    <StyledContainer>
+    <StyledContainer width={width}>
       {fillHearts(num)}
     </StyledContainer>
 
 
   );
 };
+
+const StyledDiv = styled.div`
+display: flex;
+width: 60%;
+justify-content: space-evenly
+`;
+
+const StyledContainer = styled.div<{ width: number }>`
+display: flex;
+width: ${({ width }) => width < 640 ? '60%' : '100%'};
+justify-content: space-evenly
+`;
 
 export default LifeBar;
