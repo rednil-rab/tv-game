@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Button from './Components/Button';
-import Input from './Components/Input'
+import Input from './Components/Input';
 import * as requests from './requests/requests';
 import Placeholder from './Components/Placeholder';
 import * as types from './types/types';
 import { Spinner } from 'react-bootstrap';
 import PopUp from './Components/PopUp/PopUp';
 import * as utils from './utils';
-import LifeBar from './Components/LifeBar/LifeBar'
+import LifeBar from './Components/LifeBar/LifeBar';
 import { ToastContainer, toast } from 'react-toastify';
 import useWindowSize from './hooks/useWindowsize';
 
@@ -57,7 +57,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
 
   useEffect(() => {
     async function makeShows() {
-      let temp = await requests.getShows();
+      const temp = await requests.getShows();
       setShows(temp);
       
       if (temp.length === 0) {
@@ -69,8 +69,8 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       }
       console.log(shows);
     }
-    makeShows()
-  }, [])
+    makeShows();
+  }, []);
 
 
 
@@ -78,7 +78,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     setHint(true);
     setUsed(used + 1);
     localStorage.setItem('used',JSON.stringify(used+1));
-  }
+  };
 
   const handleClickGuess: () => void = () => {
     // console.log(guess.toLowerCase())
@@ -106,7 +106,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         resetGame();
       }
     }
-  }
+  };
 
   const handleClickPopUp: () => void = () => {
     if (popUp) {
@@ -114,7 +114,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     } else {
       setPopUp(true);
     }
-  }
+  };
 
   const resetGame = () => {
     setIndex(0);
@@ -122,10 +122,10 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     setHint(false);
     setPlaceholder(utils.hideLetters(shows[0].name));
     setLife(0);
-  }
+  };
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     setGuess((e.target as HTMLInputElement).value);
-  }
+  };
 
 
 
@@ -148,7 +148,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       color: '#664FA7'
 
     }
-  ]
+  ];
 
   if (!loaded) {
     return (
@@ -156,7 +156,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         <Spinner animation="border" />
       </div>
 
-    )
+    );
   }
 
 
@@ -168,7 +168,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       clickHandler={handleClickPopUp}
       background={'#DE9F4C'}
     />
-  </div>
+  </div>;
 
   return (
     <div className="app">
@@ -179,7 +179,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
         <LifeBar num={life} />
       </div>
       <div className="main">
-      {windowSize[0] < 640 ? statContainer : ''}
+        {windowSize[0] < 640 ? statContainer : ''}
         <Placeholder text={placeholder} />
         <Input InputHandler={handleInput} />
         <div className="btn-container">
@@ -207,6 +207,6 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       <ToastContainer />
     </div>
   );
-}
+};
 
 export default App;

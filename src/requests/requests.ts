@@ -14,8 +14,6 @@ export async function getShows(): Promise<types.Show[]>   {
     } catch (e) {
         return []
     }
-    
-
 }
 
 function makeShowType(response: any): types.Show {
