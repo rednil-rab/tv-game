@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 // components
 import Button from 'Components/Button';
@@ -83,6 +83,9 @@ const App: React.FC<AppProps> = () => {
   const [life, setLife] = useState(0);
   const windowSize = useWindowSize();
 
+  // ref
+  const guessRef = useRef<HTMLInputElement>(null);
+
 
   useEffect(() => {
     async function makeShows() {
@@ -117,7 +120,10 @@ const App: React.FC<AppProps> = () => {
       setRight(right + 1);
       setToLocalStorage(RIGHT, right+1);
       setPlaceholder(hideLetters(shows[index + 1].name));
-      (document.getElementsByClassName('guess')[0] as HTMLInputElement).value = '';
+      if (guessRef.current) {
+        guessRef.current.value = '';
+      }
+      
       if (index >= shows.length) {
         setIndex(0);
         notifySucces('You did it!');
@@ -210,7 +216,7 @@ const App: React.FC<AppProps> = () => {
       <div className="main">
         {windowSize[0] < 640 ? statContainer : ''}
         <Placeholder text={placeholder} />
-        <Input InputHandler={handleInput} />
+        <Input InputHandler={handleInput} ref={guessRef} />
         <div className="btn-container">
           <Button
             text={'Check the guess'}

@@ -1,6 +1,9 @@
-import React from 'react';
-import * as types from '../types/types';
+import React, { forwardRef } from 'react';
+import { placeholderProps } from 'types/types';
 
-const Input: React.FC<types.placeholderProps> = (props) => <input className="guess" onInput={props.InputHandler}></input>;
+const Input = forwardRef<HTMLInputElement,placeholderProps>(
+  function Input (props, ref) {
+    return <input ref={ref} className="guess" onInput={props.InputHandler}></input>;
+  });
 
 export default Input;
