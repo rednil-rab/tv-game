@@ -29,7 +29,6 @@ export interface ButtonProps {
     text: string;
     clickHandler: (event: React.MouseEvent<HTMLButtonElement>) => void;
     background: string;
-
 }
 
 export interface LifeBarProps {
@@ -38,4 +37,10 @@ export interface LifeBarProps {
 
 export interface placeholderProps {
     InputHandler: (React.FormEventHandler<HTMLInputElement>);
+}
+
+export interface showFromResponse {
+    name: string,
+    overview: string,
+    first_air_date: string
 }
