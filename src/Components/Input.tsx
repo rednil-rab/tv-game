@@ -3,7 +3,8 @@ import { placeholderProps } from 'types/types';
 
 const Input = forwardRef<HTMLInputElement,placeholderProps>(
   function Input (props, ref) {
-    return <input ref={ref} className="guess" onInput={props.InputHandler}></input>;
+    const { InputHandler } = props;
+    return <input ref={ref} className="guess" onInput={InputHandler}></input>;
   });
 
 export default Input;
