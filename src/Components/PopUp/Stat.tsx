@@ -1,7 +1,7 @@
-import React from "react";
-import * as types from '../../types/types';
+import React from 'react';
+import * as types from 'types/types';
 import styled from 'styled-components';
-import useWindowResize from "../../hooks/useWindowsize";
+import useWindowResize from 'hooks/useWindowsize';
 
 const Stat: React.FC<types.StatProps> = (props) => {
   const windowSize = useWindowResize();
@@ -15,7 +15,7 @@ const Stat: React.FC<types.StatProps> = (props) => {
     justify-content: ${windowSize[0] < 640 ? 'center' : 'space-between'};
     margin: ${windowSize[0] < 640 ? '5%' : '0'};
     
-    `
+    `;
   const StyleStatLabel = styled.div`
     width: 80%;
     border-radius: 15px;
@@ -28,9 +28,9 @@ const Stat: React.FC<types.StatProps> = (props) => {
     background: ${props.color};
     `;  
   return (
-        <StyledStatDiv className="stat" ><h1 style={{margin: 0}}>{props.num}</h1><StyleStatLabel className="stat-label" >{props.text}</StyleStatLabel></StyledStatDiv>
-  )
+    <StyledStatDiv className="stat" ><h1 style={{margin: 0}}>{props.num}</h1><StyleStatLabel className="stat-label" >{props.text}</StyleStatLabel></StyledStatDiv>
+  );
 
-}
+};
 
 export default Stat;

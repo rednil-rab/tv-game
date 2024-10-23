@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import useWindowResize from '../../hooks/useWindowsize';
 
 const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
-    const windowSize = useWindowResize();
-    const StyledDiv = styled.div`
+  const windowSize = useWindowResize();
+  const StyledDiv = styled.div`
     position: fixed;
     top: 0;
     right: 0;
@@ -24,17 +24,17 @@ const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
     background: #ffffff;
     border-radius: 15px;
     padding: 3%;
-    `
-    const iterations: number = props.stats.length;
-    const popUps: JSX.Element[] = props.stats.map((stat,index) => <Stat interations={iterations} key={`key_${index}`} num={stat.num} text={stat.text} color={stat.color}></Stat>)
-    return (
-        <StyledDiv  className='pop-up'>
-        <div onClick={props.clickHandler}> <X className='x'/></div>
+    `;
+  const iterations: number = props.stats.length;
+  const popUps: JSX.Element[] = props.stats.map((stat,index) => <Stat interations={iterations} key={`key_${index}`} num={stat.num} text={stat.text} color={stat.color}></Stat>);
+  return (
+    <StyledDiv  className="pop-up">
+      <div onClick={props.clickHandler}> <X className="x"/></div>
 
-            {popUps}
-        </StyledDiv>
-    )
+      {popUps}
+    </StyledDiv>
+  );
 
-}
+};
 
 export default PopUp;

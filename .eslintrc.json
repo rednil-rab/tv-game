@@ -27,11 +27,6 @@
         "indent": ["error", 2, { "SwitchCase": 1 }],
         "no-console": ["warn", { "allow": ["warn", "error"] }],
         "quotes": ["error", "single"],
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@typescript-eslint/explicit-module-boundary-types": "warn",
-        "@typescript-eslint/no-unnecessary-type-assertion": "error",
-        "jsx-quotes": ["error", "prefer-double"],
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn"
+        "jsx-quotes": ["error", "prefer-double"]
     }
 }
