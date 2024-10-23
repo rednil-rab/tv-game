@@ -9,7 +9,7 @@ import PopUp from 'Components/PopUp/PopUp';
 import LifeBar from 'Components/LifeBar/LifeBar';
 
 // requests
-import * as requests from 'requests/requests';
+import { getShows } from 'requests/requests';
 
 // utils
 import { 
@@ -89,7 +89,7 @@ const App: React.FC<AppProps> = () => {
 
   useEffect(() => {
     async function makeShows() {
-      const temp = await requests.getShows();
+      const temp = await getShows();
       setShows(temp);
       
       if (temp.length === 0) {
@@ -194,27 +194,34 @@ const App: React.FC<AppProps> = () => {
     );
   }
 
-
-  const statContainer = 
-  <div className="stat-container">
-    <p>{score}</p>
-    <Button
-      text={'Statistics'}
-      clickHandler={handleClickPopUp}
-      background={'#DE9F4C'}
-    />
-  </div>;
-
   return (
     <div className="app">
       <div className="header">
-        {windowSize[0] > 640 ? statContainer : ''}
+        {windowSize[0] > 640 ? (
+          <div className="stat-container">
+            <p>{score}</p>
+            <Button
+              text={'Statistics'}
+              clickHandler={handleClickPopUp}
+              background={'#DE9F4C'}
+            />
+          </div>
+        ) : ''}
         
         <h1>Guess the TV show</h1>
         <LifeBar num={life} />
       </div>
       <div className="main">
-        {windowSize[0] < 640 ? statContainer : ''}
+        {windowSize[0] < 640 ? (
+          <div className="stat-container">
+            <p>{score}</p>
+            <Button
+              text={'Statistics'}
+              clickHandler={handleClickPopUp}
+              background={'#DE9F4C'}
+            />
+          </div>
+        ) : ''}
         <Placeholder text={placeholder} />
         <Input InputHandler={handleInput} ref={guessRef} />
         <div className="btn-container">
