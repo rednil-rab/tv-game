@@ -81,7 +81,7 @@ const App: React.FC<AppProps> = () => {
   const [popUp, setPopUp] = useState(false);
   const [placeholder, setPlaceholder] = useState('');
   const [life, setLife] = useState(0);
-  const windowSize = useWindowSize();
+  const { width } = useWindowSize();
 
   // ref
   const guessRef = useRef<HTMLInputElement>(null);
@@ -197,7 +197,7 @@ const App: React.FC<AppProps> = () => {
   return (
     <div className="app">
       <div className="header">
-        {windowSize[0] > 640 ? (
+        {width > 640 ? (
           <div className="stat-container">
             <p>{score}</p>
             <Button
@@ -209,10 +209,10 @@ const App: React.FC<AppProps> = () => {
         ) : ''}
         
         <h1>Guess the TV show</h1>
-        <LifeBar num={life} />
+        <LifeBar num={life} width={width}/>
       </div>
       <div className="main">
-        {windowSize[0] < 640 ? (
+        {width < 640 ? (
           <div className="stat-container">
             <p>{score}</p>
             <Button
@@ -245,6 +245,7 @@ const App: React.FC<AppProps> = () => {
         display={popUp}
         stats={stats}
         clickHandler={handleClickPopUp}
+        width={width}
       />
       <ToastContainer />
     </div>

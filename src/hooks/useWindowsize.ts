@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react';
 
 
-type TWindowSize = [number, number];
+type TWindowSize = {
+  width: number,
+  height: number
+};
 
 type THook = TWindowSize;
 
 export default function useWindowResize  (): THook {
-  const initSize: TWindowSize = [
-    window.innerWidth,
-    window.innerHeight,
-  ];
+  const initSize: TWindowSize = {
+    width: window.innerWidth,
+    height: window.innerHeight
+  };
+
   const [windowSize, setWindowSize] = useState<TWindowSize>(initSize);
 
   useEffect(() => {
     const handleResize = (): void => {
-      setWindowSize([
-        window.innerWidth,
-        window.innerHeight,
-      ]);
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
     };
 
     window.addEventListener('resize', handleResize);
@@ -26,4 +30,4 @@ export default function useWindowResize  (): THook {
     };
   }, []);
   return windowSize;
-};
+}

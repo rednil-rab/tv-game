@@ -1,19 +1,18 @@
 import React from 'react';
 import * as types from 'types/types';
 import styled from 'styled-components';
-import useWindowResize from 'hooks/useWindowsize';
 
 const Stat: React.FC<types.StatProps> = (props) => {
-  const windowSize = useWindowResize();
+  const { width } = props;
   const StyledStatDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 16px;
     font-family: 'Comfortaa', cursive;
-    width: ${windowSize[0] < 640 ? '100%' : '30%'};
-    justify-content: ${windowSize[0] < 640 ? 'center' : 'space-between'};
-    margin: ${windowSize[0] < 640 ? '5%' : '0'};
+    width: ${width < 640 ? '100%' : '30%'};
+    justify-content: ${width < 640 ? 'center' : 'space-between'};
+    margin: ${width < 640 ? '5%' : '0'};
     
     `;
   const StyleStatLabel = styled.div`

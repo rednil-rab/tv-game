@@ -3,10 +3,9 @@ import * as types from '../../types/types';
 import { HeartFill } from 'react-bootstrap-icons';
 import { Heart } from 'react-bootstrap-icons';
 import styled from 'styled-components';
-import useWindowResize from '../../hooks/useWindowsize';
 
 const LifeBar: React.FunctionComponent<types.LifeBarProps> = (props) => {
-  const windowSize = useWindowResize();
+  const { width, num } = props;
   const StyledDiv = styled.div`
     display: flex;
     width: 60%;
@@ -14,7 +13,7 @@ const LifeBar: React.FunctionComponent<types.LifeBarProps> = (props) => {
     `;
   const StyledContainer = styled.div`
     display: flex;
-    width: ${windowSize[0] < 640 ? '60%' : '100%'};
+    width: ${width < 640 ? '60%' : '100%'};
     justify-content: space-evenly
     `;
   const fillHearts: (num: number) => JSX.Element = (num) => {
@@ -32,7 +31,7 @@ const LifeBar: React.FunctionComponent<types.LifeBarProps> = (props) => {
   };
   return (
     <StyledContainer>
-      {fillHearts(props.num)}
+      {fillHearts(num)}
     </StyledContainer>
 
 

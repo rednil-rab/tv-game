@@ -3,10 +3,9 @@ import Stat from './Stat';
 import { X } from 'react-bootstrap-icons';
 import * as types from '../../types/types';
 import styled from 'styled-components';
-import useWindowResize from '../../hooks/useWindowsize';
 
 const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
-  const windowSize = useWindowResize();
+  const { width } = props;
   const StyledDiv = styled.div`
     position: fixed;
     top: 0;
@@ -17,7 +16,7 @@ const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
     height: fit-content;
     width: 60vw;
     display: ${props.display ? 'flex' : 'none'};
-    ${windowSize[0] < 640 ? 'flex-direction: column;': ''}
+    ${width < 640 ? 'flex-direction: column;': ''}
     justify-content: space-evenly;
     align-items: center;
     box-shadow: 5px 5px 15px -5px #000000;
@@ -26,7 +25,9 @@ const PopUp:React.FunctionComponent<types.popUpsProps> = (props) => {
     padding: 3%;
     `;
   const iterations: number = props.stats.length;
-  const popUps: JSX.Element[] = props.stats.map((stat,index) => <Stat interations={iterations} key={`key_${index}`} num={stat.num} text={stat.text} color={stat.color}></Stat>);
+  const popUps: JSX.Element[] = props.stats.map((stat,index) => (
+    <Stat interations={iterations} key={`key_${index}`} num={stat.num} text={stat.text} color={stat.color} width={width}></Stat>
+  ));
   return (
     <StyledDiv  className="pop-up">
       <div onClick={props.clickHandler}> <X className="x"/></div>

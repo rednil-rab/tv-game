@@ -17,12 +17,14 @@ export interface StatProps {
     text: string;
     color: string;
     interations: number;
+    width: number;
 }
 
 export interface popUpsProps {
     stats: PopUpProps[];
     display: boolean;
     clickHandler: (event: React.MouseEvent<HTMLDivElement>) => void;
+    width: number;
 }
 
 export interface ButtonProps {
@@ -33,6 +35,7 @@ export interface ButtonProps {
 
 export interface LifeBarProps {
     num: number;
+    width: number
 }
 
 export interface placeholderProps {
