@@ -1,25 +1,15 @@
 {
   "files": {
-    "main.css": "/tv-game/static/css/main.ba139c2c.chunk.css",
-    "main.js": "/tv-game/static/js/main.c8c65571.chunk.js",
-    "main.js.map": "/tv-game/static/js/main.c8c65571.chunk.js.map",
-    "runtime-main.js": "/tv-game/static/js/runtime-main.6a73effe.js",
-    "runtime-main.js.map": "/tv-game/static/js/runtime-main.6a73effe.js.map",
-    "static/css/2.68b64559.chunk.css": "/tv-game/static/css/2.68b64559.chunk.css",
-    "static/js/2.42e105c8.chunk.js": "/tv-game/static/js/2.42e105c8.chunk.js",
-    "static/js/2.42e105c8.chunk.js.map": "/tv-game/static/js/2.42e105c8.chunk.js.map",
-    "static/js/3.42ed4cdb.chunk.js": "/tv-game/static/js/3.42ed4cdb.chunk.js",
-    "static/js/3.42ed4cdb.chunk.js.map": "/tv-game/static/js/3.42ed4cdb.chunk.js.map",
+    "main.css": "/tv-game/static/css/main.53c48c63.css",
+    "main.js": "/tv-game/static/js/main.135dbf99.js",
+    "static/js/453.1d87131d.chunk.js": "/tv-game/static/js/453.1d87131d.chunk.js",
     "index.html": "/tv-game/index.html",
-    "static/css/2.68b64559.chunk.css.map": "/tv-game/static/css/2.68b64559.chunk.css.map",
-    "static/css/main.ba139c2c.chunk.css.map": "/tv-game/static/css/main.ba139c2c.chunk.css.map",
-    "static/js/2.42e105c8.chunk.js.LICENSE.txt": "/tv-game/static/js/2.42e105c8.chunk.js.LICENSE.txt"
+    "main.53c48c63.css.map": "/tv-game/static/css/main.53c48c63.css.map",
+    "main.135dbf99.js.map": "/tv-game/static/js/main.135dbf99.js.map",
+    "453.1d87131d.chunk.js.map": "/tv-game/static/js/453.1d87131d.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.6a73effe.js",
-    "static/css/2.68b64559.chunk.css",
-    "static/js/2.42e105c8.chunk.js",
-    "static/css/main.ba139c2c.chunk.css",
-    "static/js/main.c8c65571.chunk.js"
+    "static/css/main.53c48c63.css",
+    "static/js/main.135dbf99.js"
   ]
 }
