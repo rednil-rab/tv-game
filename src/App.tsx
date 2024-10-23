@@ -1,16 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import Button from './Components/Button';
-import Input from './Components/Input';
-import * as requests from './requests/requests';
-import Placeholder from './Components/Placeholder';
-import * as types from './types/types';
+
+// components
+import Button from 'Components/Button';
+import Input from 'Components/Input';
+import Placeholder from 'Components/Placeholder';
 import { Spinner } from 'react-bootstrap';
-import PopUp from './Components/PopUp/PopUp';
-import * as utils from './utils';
-import LifeBar from './Components/LifeBar/LifeBar';
+import PopUp from 'Components/PopUp/PopUp';
+import LifeBar from 'Components/LifeBar/LifeBar';
+
+// requests
+import * as requests from 'requests/requests';
+
+// utils
+import { 
+  setToLocalStorage,
+  getFromLocalStorage,
+  hideLetters
+} from 'utils';
+
+// toast
 import { ToastContainer, toast } from 'react-toastify';
-import useWindowSize from './hooks/useWindowsize';
+
+// hooks
+import useWindowSize from 'hooks/useWindowsize';
+
+// css
+import 'App.css';
+
+// types
+import { Show, PopUpProps } from 'types/types';
 
 interface AppProps {
   num?: number,
@@ -19,40 +37,51 @@ interface AppProps {
   str?: string,
 }
 
-const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) => {
-  const [score, setScore] = useState(num);
-  const [shows, setShows]: any = useState(arr);
-  const [index, setIndex] = useState(num);
-  const [loaded, setLoaded] = useState(bool);
-  const [guess, setGuess] = useState(str);
-  const [hint, setHint] = useState(bool);
-  const [right, setRight] = useState(Number(localStorage.getItem('right')) === null ? num : Number(localStorage.getItem('right')));
-  const [wrong, setWrong] = useState(Number(localStorage.getItem('wrong')) === null ? num : Number(localStorage.getItem('wrong')));
-  const [popUp, setPopUp] = useState(bool);
-  const [used, setUsed] = useState(Number(localStorage.getItem('used')) === null ? num : Number(localStorage.getItem('used')));
-  const [placeholder, setPlaceholder] = useState(str);
-  const [life, setLife] = useState(num);
+// constants
+
+const RIGHT = 'right';
+const WRONG = 'wrong';
+const USED = 'used';
+
+
+// functions
+const notifySucces = (str: string) => toast.success(str, {
+  position: 'top-center',
+  autoClose: 1000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+});
+
+const notifyError = (str: string) => toast.error(str, {
+  position: 'top-center',
+  autoClose: 1000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+});
+
+
+const App: React.FC<AppProps> = () => {
+
+  // state
+  const [right, setRight] = useState(getFromLocalStorage(RIGHT));
+  const [wrong, setWrong] = useState(getFromLocalStorage(WRONG));
+  const [used, setUsed] = useState(getFromLocalStorage(USED));
+  const [score, setScore] = useState(0);
+  const [shows, setShows] = useState<Show[]>([]);
+  const [index, setIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [guess, setGuess] = useState('');
+  const [hint, setHint] = useState(false);
+  const [popUp, setPopUp] = useState(false);
+  const [placeholder, setPlaceholder] = useState('');
+  const [life, setLife] = useState(0);
   const windowSize = useWindowSize();
-
-  const notifySucces = (str: string) => toast.success(str, {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-
-  const notifyError = (str: string) => toast.error(str, {
-    position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
 
 
   useEffect(() => {
@@ -63,11 +92,9 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       if (temp.length === 0) {
         notifyError('network error');
       } else {
-        console.log(windowSize[0]);
-        setPlaceholder(utils.hideLetters(temp[index].name));
+        setPlaceholder(hideLetters(temp[index].name));
         setLoaded(true);
       }
-      console.log(shows);
     }
     makeShows();
   }, []);
@@ -77,7 +104,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
   const handleClickHint: () => void = () => {
     setHint(true);
     setUsed(used + 1);
-    localStorage.setItem('used',JSON.stringify(used+1));
+    setToLocalStorage(USED, used+1);
   };
 
   const handleClickGuess: () => void = () => {
@@ -88,8 +115,8 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
 
       setHint(false);
       setRight(right + 1);
-      localStorage.setItem('right',JSON.stringify(right+1));
-      setPlaceholder(utils.hideLetters(shows[index + 1].name));
+      setToLocalStorage(RIGHT, right+1);
+      setPlaceholder(hideLetters(shows[index + 1].name));
       (document.getElementsByClassName('guess')[0] as HTMLInputElement).value = '';
       if (index >= shows.length) {
         setIndex(0);
@@ -97,8 +124,9 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
       }
       notifySucces('nice!');
     } else {
-      setWrong(wrong + 1);
-      localStorage.setItem('wrong',JSON.stringify(wrong+1));
+      const updatedWrong = wrong + 1;
+      setWrong(updatedWrong);
+      setToLocalStorage(WRONG, updatedWrong);
       setLife(life + 1);
       notifyError('wrong...');
       if (life > 1) {
@@ -120,16 +148,17 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
     setIndex(0);
     setScore(0);
     setHint(false);
-    setPlaceholder(utils.hideLetters(shows[0].name));
+    setPlaceholder(hideLetters(shows[0].name));
     setLife(0);
   };
+
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     setGuess((e.target as HTMLInputElement).value);
   };
 
 
 
-  const stats: types.PopUpProps[] = [
+  const stats: PopUpProps[] = [
     {
       text: 'Right guesses',
       num: right,
@@ -161,7 +190,7 @@ const App: React.FC<AppProps> = ({ str = '', num = 0, arr = [], bool = false }) 
 
 
   const statContainer = 
-  <div className='stat-container'>
+  <div className="stat-container">
     <p>{score}</p>
     <Button
       text={'Statistics'}
